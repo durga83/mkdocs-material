@@ -1,0 +1,87 @@
+site_name: Smart Recruiter
+site_url: https://bintybyte.com/
+theme:
+  name: material
+  font:
+    text: Merriweather Sans
+    code: Red Hat Mono
+  logo: assets/logo.jpg
+  favicon: assets/logo.jpg
+  features:
+    - navigation.footer
+  palette:
+    # Dark Mode
+    - scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Dark mode
+      primary: green
+      accent: deep purple
+
+    # Light Mode
+    - scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Light mode
+      primary: blue
+      accent: deep orange
+
+nav:
+  - Home: index.md
+  - Introduction: introduction.md
+  - System Requirements: system_requirements.md
+  - Configure Dependencies: configure_dependencies.md
+  - Installation & Deployment: installation_deployment.md
+  - Configuring Input & Output Folders: configuring_io_folders.md
+  - Run the Application: run_application.md
+
+markdown_extensions:
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - admonition
+  - pymdownx.details
+
+plugins:
+  - with-pdf:
+      enabled: true
+      author: BintyByte
+      copyright: "Copyright &copy; 2024 BintyByte"
+      cover: true
+      cover_title: "Smart Recruiter Documentation"
+      cover_subtitle: "Version 1.0"
+      cover_logo: assets/logo.jpg
+      toc:
+        enabled: true
+        title: "Table of Contents"
+        depth: 3  # Controls ToC depth (adjust as needed)
+      outline:
+        enabled: true  # Enable document outline for bookmarks in PDF
+        depth: 3  # Adjust to control heading levels in the outline
+      header:
+        enabled: true
+        html: overrides/header.html
+      footer:
+        enabled: true
+        center: "Page [page] of [toPage]"
+      output_path: pdf/documentation.pdf
+      use_weasyprint: true  # Ensures proper rendering of the PDF
+      ordered_chapter_level: 3  # Proper hierarchical structuring
+      enable_pdf_link: true  # Adds a PDF download link in the site
+      enable_download_button: true  # Shows a download button on the site
+
+copyright: Copyright &copy; 2024 BintyByte
