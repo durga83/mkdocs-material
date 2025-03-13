@@ -4,31 +4,51 @@ on:
     branches:
       - master
       - main
+
 permissions:
   contents: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Configure Git Credentials
         run: |
-          git config user.name github-actions[bot]
-          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
-      - uses: actions/setup-python@v5
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: 3.x
-      - run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
-      - uses: actions/cache@v4
+
+      - name: Set Cache ID
+        run: echo "cache_id=$(date --utc '+%V')" >> $GITHUB_ENV
+
+      - name: Cache Dependencies
+        uses: actions/cache@v4
         with:
           key: mkdocs-material-${{ env.cache_id }}
           path: .cache
           restore-keys: |
             mkdocs-material-
-      - run: pip install mkdocs-material mkdocs-with-pdf  # Install both mkdocs-material and mkdocs-with-pdf
-      - run: mkdocs build --site-dir site  # Ensure site_dir is not inside docs_dir
+
+      - name: Install MkDocs and Plugins
+        run: pip install mkdocs-material mkdocs-with-pdf
+
+      - name: Build MkDocs Site
+        run: mkdocs build --site-dir site
+
       - name: Deploy to GitHub Pages
         run: |
-          git add site
-          git commit -m "Deploy site to GitHub Pages"
-          git push origin main
+          git fetch origin gh-pages || git checkout --orphan gh-pages
+          git worktree add gh-pages
+          rm -rf gh-pages/*
+          cp -r site/* gh-pages/
+          cd gh-pages
+          git add .
+          git commit -m "Deploy MkDocs site"
+          git push origin gh-pages --force
