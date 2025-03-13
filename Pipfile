@@ -6,8 +6,8 @@ name = "pypi"
 [packages]
 mkdocs-material = "*"
 mkdocs-pdf-export-plugin = "*"
-mkdocs-with-pdf = "*"
 weasyprint = "*"
+mkdocs-with-pdf = "*"
 
 [dev-packages]
 
