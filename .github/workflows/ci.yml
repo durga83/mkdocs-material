@@ -25,7 +25,7 @@ jobs:
           path: .cache
           restore-keys: |
             mkdocs-material-
-      - run: pip install mkdocs-material 
+      - run: pip install mkdocs-material mkdocs-with-pdf  # Install both mkdocs-material and mkdocs-with-pdf
       - run: mkdocs build --site-dir docs  # Build the site into the /docs folder
       - name: Deploy to GitHub Pages
         run: |
